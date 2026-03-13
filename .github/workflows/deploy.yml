@@ -132,3 +132,6 @@ jobs:
   # 3. Configurez les protection rules (approbations, etc.)
   # 4. Ajoutez: environment: ${{ github.event.inputs.environment || 'production' }}
   #    dans le job deploy
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

@@ -1,0 +1,29 @@
+services:
+  # Web Service
+  - type: web
+    name: hello-django
+    runtime: python
+    plan: free  # Changez en 'starter' ou 'standard' pour production
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        sync: false  # À configurer manuellement avec le domaine Render
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hello-db
+          property: connectionString
+    autoDeploy: true  # Déploiement automatique sur push vers la branche principale
+
+databases:
+  # PostgreSQL Database
+  - name: hello-db
+    databaseName: hello
+    plan: free  # Changez en 'starter' ou 'standard' pour production
+    user: hello
