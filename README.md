@@ -1,6 +1,14 @@
 # Hello World Django
 
+![CI](https://github.com/VOTRE-USERNAME/hello/actions/workflows/ci.yml/badge.svg)
+![Deploy](https://github.com/VOTRE-USERNAME/hello/actions/workflows/deploy.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.11.9-blue.svg)
+![Django](https://img.shields.io/badge/django-4.2-green.svg)
+![License](https://img.shields.io/badge/license-Educational-orange.svg)
+
 Application Django minimaliste avec une page d'accueil "Hello world !", conçue pour l'apprentissage pas à pas de CI/CD avec GitHub Actions.
+
+> **Note** : Remplacez `VOTRE-USERNAME` dans les badges par votre nom d'utilisateur GitHub une fois le repository créé.
 
 ## 📋 Caractéristiques
 
@@ -212,19 +220,79 @@ gunicorn config.wsgi:application --bind 0.0.0.0:8000
 Ce projet est conçu pour l'apprentissage. N'hésitez pas à :
 - Ajouter de nouvelles fonctionnalités
 - Améliorer les tests
-- Configurer GitHub Actions pour CI/CD
+- Étendre les workflows GitHub Actions
+
+Pour contribuer avec CI/CD :
+1. Fork le repository
+2. Créez une branche : `git checkout -b feature/ma-fonctionnalite`
+3. Committez vos changements : `git commit -m "Ajout: ma fonctionnalité"`
+4. Poussez vers la branche : `git push origin feature/ma-fonctionnalite`
+5. Ouvrez une Pull Request → Les workflows CI s'exécuteront automatiquement
+
+## 🚀 CI/CD avec GitHub Actions
+
+### Workflows Configurés
+
+#### ✅ CI (Continuous Integration)
+**Fichier** : `.github/workflows/ci.yml`
+
+Exécute automatiquement à chaque push ou pull request sur `main` :
+- Installation des dépendances
+- Exécution des migrations
+- Lancement des tests avec pytest
+- Génération du rapport de couverture
+- Upload des artifacts (rapports HTML/XML)
+
+**Voir le status** : Badge CI en haut du README
+
+#### 🚀 Deploy (Deployment)
+**Fichier** : `.github/workflows/deploy.yml`
+
+Déclenché sur :
+- Push de tags `v*.*.*` (ex: `v1.0.0`)
+- Déclenchement manuel via l'interface GitHub
+
+Étapes :
+- Validation de la configuration production
+- Vérification des migrations
+- Collecte des fichiers statiques
+- Préparation au déploiement
+
+**Créer un déploiement** :
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+### Visualiser les Résultats
+
+1. **Onglet Actions** : Allez sur GitHub → onglet "Actions"
+2. **Artifacts** : Téléchargez les rapports de couverture depuis les workflows terminés
+3. **Badges** : Les badges en haut du README montrent le status en temps réel
+
+### Documentation Complète
+
+Pour plus de détails sur les workflows, consultez [.github/workflows/README.md](.github/workflows/README.md) qui contient :
+- Description détaillée de chaque workflow
+- Comment tester les workflows localement
+- Exercices d'extension (linting, matrice multi-version, Codecov, etc.)
+- Guide de dépannage
+- Ressources additionnelles
+
+### Exercices d'Apprentissage CI/CD
+
+1. **Ajouter un workflow de linting** : Créer `lint.yml` pour black, flake8, isort
+2. **Matrice de tests** : Tester sur Python 3.10, 3.11, 3.12
+3. **Intégrer Codecov** : Visualiser la couverture de code en ligne
+4. **Multi-OS** : Tester sur Ubuntu, Windows, macOS
+5. **Déploiement réel** : Configurer Heroku, Railway ou Render
+6. **GitHub Environments** : Séparer staging et production
+
+Consultez la [documentation des workflows](.github/workflows/README.md) pour les instructions détaillées.
 
 ## 📝 Licence
 
 Ce projet est libre d'utilisation pour l'apprentissage.
-
-## 🎯 Prochaines Étapes (CI/CD)
-
-- [ ] Configurer GitHub Actions pour tests automatiques
-- [ ] Ajouter linting automatique (black, flake8)
-- [ ] Configurer coverage reports
-- [ ] Setup du déploiement automatique
-- [ ] Ajouter des badges de status au README
 
 ---
 
