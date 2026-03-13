@@ -127,7 +127,7 @@ jobs:
         http_code=$(echo "$response" | tail -n1)
         body=$(echo "$response" | head -n-1)
         
-        if [ "$http_code" -eq 201 ]; then
+        if [ "$http_code" -eq 201 ] || [ "$http_code" -eq 202 ]; then
           echo "✅ Déploiement déclenché avec succès!"
           echo "📋 Suivez les logs sur: https://dashboard.render.com"
         else
