@@ -76,17 +76,11 @@ jobs:
     # 8. Affiche les informations de déploiement
     - name: Deployment info
       run: |
-        echo "🚀 Validation réussie!"
+        echo "✅ Validation réussie!"
         echo "📦 Version: ${{ github.ref_name }}"
         echo "🌍 Environment: ${{ github.event.inputs.environment || 'production' }}"
+        echo "🚀 Déploiement sur Render.com en cours..."
         echo ""
-        echo "⚠️  PROCHAINES ÉTAPES:"
-        echo "   - Configurer les secrets GitHub (DATABASE_URL, SECRET_KEY, etc.)"
-        echo "   - Choisir une plateforme de déploiement (voir options ci-dessous)"
-        echo ""
-
-  # EXERCICE: Ajouter un job de déploiement réel
-  # Décommentez et adaptez l'un des exemples ci-dessous selon votre plateforme
 
   # deploy-heroku:
   #   name: Deploy to Heroku
@@ -111,19 +105,37 @@ jobs:
   #       railway_token: ${{ secrets.RAILWAY_TOKEN }}
   #       service: "your-service-name"
 
-  # deploy-render:
-  #   name: Deploy to Render
-  #   needs: validate
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Deploy to Render
-  #     env:
-  #       RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-  #     run: |
-  #       curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
-  #         -H "Authorization: Bearer $RENDER_API_KEY" \
-  #         -H "Content-Type: application/json"
+  deploy-render:
+    name: Deploy to Render
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger Render deployment
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+      run: |
+        echo "🚀 Déclenchement du déploiement sur Render..."
+        echo "📦 Version: ${{ github.ref_name }}"
+        echo "🔗 Service ID: ${RENDER_SERVICE_ID:0:10}..."
+        
+        response=$(curl -s -w "\n%{http_code}" -X POST \
+          "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+          -H "Authorization: Bearer $RENDER_API_KEY" \
+          -H "Content-Type: application/json")
+        
+        http_code=$(echo "$response" | tail -n1)
+        body=$(echo "$response" | head -n-1)
+        
+        if [ "$http_code" -eq 201 ]; then
+          echo "✅ Déploiement déclenché avec succès!"
+          echo "📋 Suivez les logs sur: https://dashboard.render.com"
+        else
+          echo "❌ Erreur lors du déclenchement du déploiement"
+          echo "HTTP Status: $http_code"
+          echo "Response: $body"
+          exit 1
+        fi
 
   # EXERCICE: Utiliser GitHub Environments pour staging/production
   # Pour activer:
