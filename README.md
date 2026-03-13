@@ -1,14 +1,14 @@
 # Hello World Django
 
-![CI](https://github.com/VOTRE-USERNAME/hello/actions/workflows/ci.yml/badge.svg)
-![Deploy](https://github.com/VOTRE-USERNAME/hello/actions/workflows/deploy.yml/badge.svg)
+![CI](https://github.com/Vineeee/hello/actions/workflows/ci.yml/badge.svg)
+![Deploy](https://github.com/Vineeee/hello/actions/workflows/deploy.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.11.9-blue.svg)
 ![Django](https://img.shields.io/badge/django-4.2-green.svg)
 ![License](https://img.shields.io/badge/license-Educational-orange.svg)
 
 Application Django minimaliste avec une page d'accueil "Hello world !", conçue pour l'apprentissage pas à pas de CI/CD avec GitHub Actions.
 
-> **Note** : Remplacez `VOTRE-USERNAME` dans les badges par votre nom d'utilisateur GitHub une fois le repository créé.
+> **Note** : Remplacez `Vineeee` dans les badges par votre nom d'utilisateur GitHub une fois le repository créé.
 
 ## 📋 Caractéristiques
 
